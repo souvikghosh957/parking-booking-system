@@ -26,7 +26,8 @@ public class ParkingBookingSystemSecurity extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests().antMatchers("/parking/admin/**").hasRole("ADMIN")
-		.antMatchers("/user/**", "/parking/**").hasAnyRole("ADMIN", "USER") 
+		.antMatchers("/parking/**").hasAnyRole("ADMIN", "USER")
+		.antMatchers("/user/**").permitAll()
 		.anyRequest().authenticated().and().csrf().disable().httpBasic();
 	}
 
