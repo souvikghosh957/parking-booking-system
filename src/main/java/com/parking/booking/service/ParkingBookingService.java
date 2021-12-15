@@ -15,6 +15,9 @@ import java.util.stream.Collectors;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -147,8 +150,11 @@ public class ParkingBookingService {
 		return null;
 	}
 
-	public List<BookingDetails> bookTicket(TicketRequest ticketRequest) {
-		String userId = "souvik";
+	public List<BookingDetails> bookTicket(TicketRequest ticketRequest) throws Exception {
+		String userId = getUserNameOfLoggedInUser();
+		if(userId == null || userId.isBlank()) {
+			throw new Exception("Could not retrive the userId");
+		}
 		if (checkIfTimesValid(ticketRequest.getBookFrom(), ticketRequest.getBookTo())) {
 			throw new InvalidTimeSlotException("Entered times are either past time or not in correct chronology.");
 		}
@@ -164,6 +170,17 @@ public class ParkingBookingService {
 		}
 		return bookings;
 	}
+	
+	private String getUserNameOfLoggedInUser() {
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();	
+		String username = "";
+		if (principal instanceof UserDetails) {
+			   username = ((UserDetails)principal).getUsername();
+			} else {
+			   username = principal.toString();
+			}
+		return username;
+	}
 
 	private boolean checkIfTimesValid(Date bookFrom, Date bookTo) {
 		Instant currentTime = ZonedDateTime.now(ZoneId.of("Asia/Kolkata")).toInstant();
@@ -176,7 +193,7 @@ public class ParkingBookingService {
 		List<DateTime> dateTime = new ArrayList<DateTime>();
 		Date timeFrom = ticketRequest.getBookFrom();
 		Date timeTo = ticketRequest.getBookTo();
-		ParkingSpots parkingSpot = parkingSpotRepository.findByArea(ticketRequest.getParkingArea());
+		ParkingSpots parkingSpot = parkingSpotRepository.getByAreaName(ticketRequest.getParkingArea());
 		if (parkingSpot == null) {
 			throw new AreaNotFoundException("Entered booking area is not available.");
 		}

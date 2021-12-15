@@ -19,5 +19,8 @@ public interface ParkingSpotRepository extends JpaRepository<ParkingSpots, Strin
 	public ParkingSpots findByPincode(String pincode);
 	
 	public List<ParkingSpots> findByDistrict(String district);
+	
+	@Query(value="select * from location l where l.area= :areaName", nativeQuery=true)
+	public ParkingSpots getByAreaName(String areaName);
 
 }
