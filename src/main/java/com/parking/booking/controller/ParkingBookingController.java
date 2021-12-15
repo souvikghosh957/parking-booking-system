@@ -183,9 +183,9 @@ public class ParkingBookingController {
 				return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED)
 						.body(new BookingResponse(ex.getMessage(), null));
 			} catch (Exception ex) {
-				message = "Exception occured while adding locations: ";
+				message = "Exception occured while booking ticket ";
 				logger.error(ex.getMessage());
-				return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new BookingResponse(message, null));
+				return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new BookingResponse(ex.getMessage(), null));
 			}
 		}
 		message = "Please provide non empty requests!";
