@@ -12,10 +12,17 @@ import com.parking.booking.models.DateTime;
 @Repository
 public interface DateTimeRepository extends JpaRepository<DateTime, String>{
 
-	@Query(value="select * from date_time dt where dt.entry_time <= :timeFrom "
-			+ "and dt.exit_time >= :timeFrom or dt.entry_time <= :timeTo and dt.exit_time >= :timeTo "
+//	@Query(value="select * from date_time dt where dt.entry_time <= :timeFrom "
+//			+ "and dt.exit_time >= :timeFrom or dt.entry_time <= :timeTo and dt.exit_time >= :timeTo "
+//			+ "and location_id = :locationId", nativeQuery=true)
+//	public List<DateTime> getTimeSlotIfAvailable(Date timeFrom, Date timeTo, String locationId);
+	
+	@Query(value="select * from date_time dt where dt.entry_time BETWEEN :timeFrom "
+			+ "and :timeTo or dt.exit_time BETWEEN :timeFrom and :timeTo"
 			+ "and location_id = :locationId", nativeQuery=true)
 	public List<DateTime> getTimeSlotIfAvailable(Date timeFrom, Date timeTo, String locationId);
+	
+
 	
 
 }
