@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -17,6 +18,11 @@ public class ParkingBookingSystemSecurity extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	private UserDetailsService userDetailsService;
+	
+	@Override
+	public void configure(WebSecurity web) throws Exception {
+	    web.ignoring().antMatchers("/user/**");
+	}
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -28,7 +34,7 @@ public class ParkingBookingSystemSecurity extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests().antMatchers("/parking/admin/**").hasRole("ADMIN")
 		.antMatchers("/parking/**").hasAnyRole("ADMIN", "USER")
 		.antMatchers("/user/**").permitAll()
-		.anyRequest().authenticated().and().csrf().disable().httpBasic();
+		.anyRequest().authenticated().and().csrf().disable().httpBasic().and().formLogin();
 	}
 
 	@Bean
