@@ -42,6 +42,13 @@ public class ParkingBookingController {
 	@Autowired
 	private ParkingBookingService parkingBookingService;
 
+	/**
+	 * This end point allows admin to add parking spot. For getting the
+	 * city/district external Post Office API is called from this system.
+	 * 
+	 * @param locationRequest
+	 * @return Response contains generated locationId and added location name.
+	 */
 	@PostMapping(value = "/admin/addParkingLocations", consumes = { MediaType.APPLICATION_JSON_VALUE }, produces = {
 			MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<AddLocationResponse> addParkingLocations(@RequestBody List<LocationRequest> locationRequest) {
@@ -62,6 +69,13 @@ public class ParkingBookingController {
 				.body(new AddLocationResponse(message, Collections.emptyMap()));
 	}
 
+	/**
+	 * With this endpont any user can get all available locations or all available
+	 * location present in certain district (like Bengaluru)
+	 * 
+	 * @param district
+	 * @return all available parking location
+	 */
 	@GetMapping(value = "/getAllLocations", produces = { MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<AllLocationsResponse> getParkingLocations(
 			@RequestParam(name = "district", required = false) String district) {
@@ -84,6 +98,15 @@ public class ParkingBookingController {
 		}
 	}
 
+	/**
+	 * With this any user can get a parking location by name/pincode or the location
+	 * id.
+	 * 
+	 * @param areaName
+	 * @param pincode
+	 * @param locationId
+	 * @return Fetched area
+	 */
 	@GetMapping(value = "/getParkingLocation", produces = { MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<GetLocationResponse> getParkingLocation(
 			@RequestParam(name = "areaName", required = false) String areaName,
@@ -113,6 +136,13 @@ public class ParkingBookingController {
 		}
 	}
 
+	/**
+	 * An admin can update the parking location by passing location request. Area
+	 * name or pincode should not be changed while updating the location details.
+	 * 
+	 * @param locationRequest
+	 * @return
+	 */
 	@PutMapping(value = "/admin/updateParkingLocation", consumes = { MediaType.APPLICATION_JSON_VALUE }, produces = {
 			MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<UpdateLocationResponse> updateParkingLocation(@RequestBody LocationRequest locationRequest) {
@@ -137,6 +167,12 @@ public class ParkingBookingController {
 		}
 	}
 
+	/**
+	 * An admin can remove a location by passing area name in the url.
+	 * 
+	 * @param areaName
+	 * @return success message with location Id and location name.
+	 */
 	@DeleteMapping(value = "/admin/removeLocations/{areaName}", produces = { MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<DeletedLocationResponse> removeLocations(@PathVariable String areaName) {
 		String message = "";
@@ -163,7 +199,17 @@ public class ParkingBookingController {
 				.body(new DeletedLocationResponse(message, Collections.emptyMap()));
 	}
 
-	
+	/**
+	 * An user can book a ticket through this API. In request we can pass location
+	 * name entry and exit time, if that time will be recurring on daily, weekly or
+	 * monthly basis and for number of time it would repeat. If the booking spot is
+	 * already booked on the requested time we can not book and get response
+	 * accordingly. If the location is not available we can not book that location
+	 * and get the response.
+	 * 
+	 * @param ticketRequest
+	 * @return Booked id, location name and time for which it's booked for the user.
+	 */
 	@PostMapping(value = "/bookTicket", consumes = { MediaType.APPLICATION_JSON_VALUE }, produces = {
 			MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<BookingResponse> bookTicket(@RequestBody TicketRequest ticketRequest) {
@@ -185,7 +231,8 @@ public class ParkingBookingController {
 			} catch (Exception ex) {
 				message = "Exception occured while booking ticket ";
 				logger.error(ex.getMessage());
-				return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new BookingResponse(ex.getMessage(), null));
+				return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED)
+						.body(new BookingResponse(ex.getMessage(), null));
 			}
 		}
 		message = "Please provide non empty requests!";

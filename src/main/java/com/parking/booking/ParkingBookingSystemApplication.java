@@ -11,6 +11,11 @@ import org.springframework.web.client.RestTemplate;
 @SpringBootApplication
 public class ParkingBookingSystemApplication {
 
+	/**
+	 *  Parking booking system. The starting point of the application.
+	 * @param args
+	 * @author Souvik Ghosh
+	 */
 	public static void main(String[] args) {
 		SpringApplication.run(ParkingBookingSystemApplication.class, args);
 	}

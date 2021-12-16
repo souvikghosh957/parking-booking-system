@@ -4,13 +4,13 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.parking.booking.service.ParkingBookingService;
+import com.parking.booking.service.impl.ParkingBookingServiceImpl;
 
 @SpringBootTest
 class ParkingBookingSystemApplicationTests {
 
 	@Autowired
-	private ParkingBookingService parkingBookingService;
+	private ParkingBookingServiceImpl parkingBookingService;
 	
 	
 

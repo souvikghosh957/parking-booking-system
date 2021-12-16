@@ -24,6 +24,12 @@ public class UserController {
 	@Autowired
 	private UserService userservice;
 
+	/**
+	 * With this api a user will be registered with his/her userId, password, role and other required details.
+	 * One can only access this applications API once he/she is registered by this API
+	 * @param user
+	 * @return Response message
+	 */
 	@PostMapping(value = "/registerUser", consumes = { MediaType.APPLICATION_JSON_VALUE }, produces = {
 			MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<ResponseMessage> registerUser(@RequestBody User user) {
