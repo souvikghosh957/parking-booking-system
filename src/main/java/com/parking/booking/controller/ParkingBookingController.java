@@ -205,7 +205,8 @@ public class ParkingBookingController {
 	 * monthly basis and for number of time it would repeat. If the booking spot is
 	 * already booked on the requested time we can not book and get response
 	 * accordingly. If the location is not available we can not book that location
-	 * and get the response.
+	 * and get the response. Time entered should be current or any future time and 
+	 * chronology should be correct.
 	 * 
 	 * @param ticketRequest
 	 * @return Booked id, location name and time for which it's booked for the user.
