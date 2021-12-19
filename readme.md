@@ -1,4 +1,4 @@
-<h1>Parking Booking System - Deployed in Heroku</h1>
+<h1>A Parking Booking System - Deployed in Heroku</h1>
 
 ***Tech Stack:*** 
 Java, Spring Boot, REST API, Rest Template, MySQL(local), PostgreSQL(Heroku), Heroku for deployment, Spring Security, JPA, Devtool, Postman, Eclipse, MySQL Workbench, Gitbash
