@@ -2,16 +2,20 @@
 
 ***Tech Stack:*** 
 Java, Spring Boot, REST API, Rest Template, MySQL(local), PostgreSQL(Heroku), Heroku for deployment, Spring Security, JPA, Devtool, Postman, Eclipse, MySQL Workbench, Gitbash
+
 ***Application Flow***
 Register a User -> Add Parking Locations -> Get All Location -> Get Location by name -> Get Location By District (Bangalore) -> Update Location -> Remove Location->Book Ticket (Option to book in recurring  days, weeks and months.
+
 **System Overview**
 As per requirement a user with only admin access can add, remove, update a parking location. Both user with admin and user role can view a particular location, or can get locations by district name and book ticket if slot is available. Booking time should be always future date and entry time should be before exit time. Application is deployed in heroku and all sample request and response is provided below:
+
 **Advanced Requirements**
 Due to time constrains those feature is not implemented in the code.
 1) We can integrate any external parking booking system easily as this application already talks to the external Govt. Post  Office API with url https://api.postalpincode.in/pincode/560037
 2) We can scale the system vertically by implementing API gateway and ribbon for load balancing.
 3) For invoice, after booking a ticket successfully we can charge according to the time and location and generate an invoice.
 4) For security application currently using Spring Security
+
 ***How the ticket booking works?***
 Once the API gets a request from a registered user:
 1) It checks if requested time a future time and entry time is before the exit time.
@@ -40,6 +44,7 @@ Response:
 }
 **note: All below URL is accessible after successful authentication by a registered user. So user needs to be registered first. Its uses Basic Authentication. All the sample test was done from Postman.
 The username and password is passed in the header from postman. 
+
 ***Add Location:***
 URL: POST: https://arcane-fortress-65741.herokuapp.com/parking/admin/addParkingLocations
 Request:
@@ -65,6 +70,7 @@ Response:
         "1661588951": "Air Force Stn. Yelahanka"
     }
 }
+
 ***Get All Locations/ All location in a district:***
 URL1: GET: https://arcane-fortress-65741.herokuapp.com/parking/getAllLocations
 URL2:GET:  https://arcane-fortress-65741.herokuapp.com/parking/getAllLocations?district=Bangalore
@@ -98,6 +104,7 @@ Response:
         }
 ]
 }
+
 ***Get location by location name/pincode/locationId:***
 Url1: Get: https://arcane-fortress-65741.herokuapp.com/parking/getParkingLocation?areaName=Banashankari
 Url2: Get: https://arcane-fortress-65741.herokuapp.com/parking/getParkingLocation?pincode=560050
@@ -114,6 +121,7 @@ Response:
             "district": "Bangalore"
     }
 }
+
 ***Update a Location:***
 URL:
 PUT: https://arcane-fortress-65741.herokuapp.com/parking/getParkingLocation?locationId=1661588951
@@ -132,6 +140,7 @@ Response:
         "2126199578": "Agaram"
     }
 }
+
 ***Remove a Location***
 URL:
 Delete: https://arcane-fortress-65741.herokuapp.com/parking/admin/removeLocations/Agaram
@@ -142,6 +151,7 @@ Response:
         "2126199578": "Agaram"
     }
 }
+
 ***Book Ticket:***
 URL: 
 POST: https://arcane-fortress-65741.herokuapp.com/parking/bookTicket
@@ -168,6 +178,7 @@ Response:
         }
     ]
 }
+
 ***Book Ticket For recurring date:***
 URL: 
 POST: https://arcane-fortress-65741.herokuapp.com/parking/bookTicket
