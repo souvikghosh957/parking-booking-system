@@ -28,6 +28,7 @@ Once it pass all the checks it book the slot for the requested user. In the requ
 **No Authentication required for this api.
 URL: 
 POST: https://arcane-fortress-65741.herokuapp.com/user/registerUser
+
 Request:
 {
     "userId" : "navin",
@@ -38,15 +39,19 @@ Request:
     "phone": "8889799888",
     "userLocation": "Bengaluru"
 }
+
 Response:
 {
     "message": "User created success fully"
 }
+
+
 **note: All below URL is accessible after successful authentication by a registered user. So user needs to be registered first. Its uses Basic Authentication. All the sample test was done from Postman.
 The username and password is passed in the header from postman. 
 
 ***Add Location:***
 URL: POST: https://arcane-fortress-65741.herokuapp.com/parking/admin/addParkingLocations
+
 Request:
 [
     {
@@ -62,6 +67,7 @@ Request:
             "longitude": "77.5763"
         }
 ]
+
 Response:
 {
     "message": "Below locations added successfully.",
@@ -74,6 +80,7 @@ Response:
 ***Get All Locations/ All location in a district:***
 URL1: GET: https://arcane-fortress-65741.herokuapp.com/parking/getAllLocations
 URL2:GET:  https://arcane-fortress-65741.herokuapp.com/parking/getAllLocations?district=Bangalore
+
 Response:
 {
     "message": "All available location in district Bangalore",
@@ -109,6 +116,7 @@ Response:
 Url1: Get: https://arcane-fortress-65741.herokuapp.com/parking/getParkingLocation?areaName=Banashankari
 Url2: Get: https://arcane-fortress-65741.herokuapp.com/parking/getParkingLocation?pincode=560050
 Url3: Get:  https://arcane-fortress-65741.herokuapp.com/parking/getParkingLocation?locationId=353655812
+
 Response:
 {
     "message": "Find detailed location below: ",
@@ -124,6 +132,7 @@ Response:
 
 ***Update a Location:***
 URL:
+
 PUT: https://arcane-fortress-65741.herokuapp.com/parking/getParkingLocation?locationId=1661588951
 Request:
  {
@@ -133,6 +142,7 @@ Request:
             "longitude": 77.0000,
             "district": "Bangalore"
         }
+
 Response:
 {
     "message": "Location updated successfully.",
@@ -155,6 +165,7 @@ Response:
 ***Book Ticket:***
 URL: 
 POST: https://arcane-fortress-65741.herokuapp.com/parking/bookTicket
+
 Request:
 {
     "parkingArea": "Chamrajpet West",
@@ -167,6 +178,7 @@ Request:
     "isMonthlyRecurring": false,
     "numberOfMonths": 5
 }
+
 Response:
 {
     "message": "Your ticket has been booked! ",
@@ -182,6 +194,7 @@ Response:
 ***Book Ticket For recurring date:***
 URL: 
 POST: https://arcane-fortress-65741.herokuapp.com/parking/bookTicket
+
 Request:
 {
     "parkingArea": "Chamrajpet West",
@@ -194,6 +207,7 @@ Request:
     "isMonthlyRecurring": false,
     "numberOfMonths": 5
 }
+
 Response:
 {
     "message": "Your ticket has been booked! ",
@@ -227,6 +241,7 @@ Response:
     "message": "The entered time slot is not available. Choose other time for this location.",
     "bookingDetails": null
 }
+
 ***When entered time is a past time or chronology is not correct:***
 Response:
 {
