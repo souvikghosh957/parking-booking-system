@@ -3,18 +3,11 @@
 ***Tech Stack:*** 
 Java, Spring Boot, REST API, Rest Template, MySQL(local), PostgreSQL(Heroku), Heroku for deployment, Spring Security, JPA, Devtool, Postman, Eclipse, MySQL Workbench, Gitbash
 
-***Application Flow***
+***Application Flow:***
 Register a User -> Add Parking Locations -> Get All Location -> Get Location by name -> Get Location By District (Bangalore) -> Update Location -> Remove Location->Book Ticket (Option to book in recurring  days, weeks and months.
 
-**System Overview**
-As per requirement a user with only admin access can add, remove, update a parking location. Both user with admin and user role can view a particular location, or can get locations by district name and book ticket if slot is available. Booking time should be always future date and entry time should be before exit time. Application is deployed in heroku and all sample request and response is provided below:
-
-**Advanced Requirements**
-Due to time constrains those feature is not implemented in the code.
-1) We can integrate any external parking booking system easily as this application already talks to the external Govt. Post  Office API with url https://api.postalpincode.in/pincode/560037
-2) We can scale the system vertically by implementing API gateway and ribbon for load balancing.
-3) For invoice, after booking a ticket successfully we can charge according to the time and location and generate an invoice.
-4) For security application currently using Spring Security
+**System Overview:**
+Currently a user with only admin access can add, remove, update a parking location. Both user with admin and user role can view a particular location, or can get locations by district name and book ticket if slot is available. Booking time should be always future date and entry time should be before exit time. Application is deployed in heroku and all sample request and response is provided below:
 
 ***How the ticket booking works?***
 Once the API gets a request from a registered user:
@@ -77,9 +70,9 @@ Response:
     }
 }
 
-***Get All Locations/ All location in a district:***
+***Get All Locations/ All locations in a district:***
 URL1: GET: https://arcane-fortress-65741.herokuapp.com/parking/getAllLocations
-URL2:GET:  https://arcane-fortress-65741.herokuapp.com/parking/getAllLocations?district=Bangalore
+URL2: GET:  https://arcane-fortress-65741.herokuapp.com/parking/getAllLocations?district=Bangalore
 
 Response:
 {
@@ -132,7 +125,6 @@ Response:
 
 ***Update a Location:***
 URL:
-
 PUT: https://arcane-fortress-65741.herokuapp.com/parking/getParkingLocation?locationId=1661588951
 Request:
  {
@@ -151,7 +143,7 @@ Response:
     }
 }
 
-***Remove a Location***
+***Remove a Location:***
 URL:
 Delete: https://arcane-fortress-65741.herokuapp.com/parking/admin/removeLocations/Agaram
 Response:
